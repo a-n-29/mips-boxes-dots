@@ -25,7 +25,7 @@ print_board:
   
 print_board_loop:
 	lb $t1, array($t0) # load current character into $t1
-	beq $t1, 0, exit    # if character is null terminator, exit print_board_loop
+	beq $t1, 0, print_exit    # if character is null terminator, exit print_board_loop
 	addi $t0, $t0, 1    # increment counter
 	addi $t2, $t0, 1    # calculate next character index
 
@@ -53,9 +53,8 @@ print_board_newline:
 	li $a0, 9
 	syscall
 	j print_board_loop              # continue print_board_looping
-exit:
-	li $v0, 10          # exit program system call
-	syscall
+print_exit:
+	jr $ra
 
 #	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17
 #1	+	 	+	 	+	 	+	 	+	 	+	 	+	 	+	 	+	
