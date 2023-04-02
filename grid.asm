@@ -1,6 +1,11 @@
+### NOTE: the address of 'array' is stored in register $s0 so it can be accessed across other files
 .data
 array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
 column_axis: .asciiz "\t1\t2\t\3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14\t15\t16\t17\n"
+
+# The below array was used for testing the validity of user-input in user_Turn.asm
+     #array: .asciiz  "+ + +-+ + +-+ +-+| |              + + + + + + + + +      |          + + + + +-+ + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                |+ + + + + + + +-+"
+
 .text
 .globl print_board
 
@@ -10,6 +15,8 @@ column_axis: .asciiz "\t1\t2\t\3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14\t15\t16\t
 	# updateBoard_Player (args from user input)
 
 print_board:
+	la $s0, array	# ADDRESS OF THE ARRAY IS IN REGISTER $s0
+
 	li $t0, 0          # initialize counter to 0
 	la $a0,column_axis
 	li $v0, 4
