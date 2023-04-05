@@ -8,6 +8,7 @@ gameloop:
 	jal user_Turn
 	# change turn
 	# computer turn
+	jal computer_Turn
 	# j gameloop
 exit:	li $v0, 10
 	syscall
