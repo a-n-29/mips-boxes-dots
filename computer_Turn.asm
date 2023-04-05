@@ -1,5 +1,8 @@
 # Current Computer Function: Randomly picks valid index
 
+# TODO: Check the board to make sure a line isn't already there.
+# TODO: Advanced function for checking if there are 3 lines so the computer can choose to form a box
+
 ## RETURNS TWO VALUES ##
 #	$v0 = row index
 #	$v1 = col index
