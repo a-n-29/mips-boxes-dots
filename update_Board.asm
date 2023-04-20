@@ -2,112 +2,48 @@
 #with additions from grid.asm for reprinting purposes
 
 .data
-array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
 Inform: .asciiz "\nUpdating Board...\n"
-column_axis: .asciiz "\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14\t15\t16\t17\n"
 .globl update_Board
 .text
 
 update_Board:
 
- # Calculate the index of the array where the character should be inserted
-    add $v0, $v0, 1  # row_index +1
-    mul $t0, $v0, 17   # row_index * 17
-    add $v1, $v1, 1  # column_index +1
-    add $t0, $t0, $v1  # (row_index * 17) + col_index
-    
-   
-    
-    # Check row value (modulo 2) and store the character to be inserted in $t1
-    rem $t2, $v0, 2
-    # If modulo 2 == 0, then go to even_column
-    beqz $t2, even_column
-    li $t1, '|'
-    j insert_character
-even_column:
-    li $t1, '-'
+# preserves original $a0 on stack using stack pointer
+addi $sp, $sp, -4
+sw $a0, ($sp)
 
+ # calculate the index of the array where the character should be inserted
+add $t0, $v0, $zero # $t0 = rowNum 
+mul $t0, $t0, 17 # $t0 = rowNum * 17
+add $t0, $t0, $v1 # $t0 = rowNum * 17 + colNum
 
-insert_character:
-    # Insert the character into the array
-    #load address of the array into $t3
-    la $t3, array
-    #add $t3 and $t0 and store in $t3
-    add $t4, $t3, $t0
-    # store | or - at the address of the array
-    sb  $t1, 0($t4)
-    
-print_board:
-    
-    # Print the updated board
-    la $a0, Inform
-    li $v0, 4
-    syscall
+# $t0 is now the current index in the 1D array
 
-    # Print column numbers
-    #Initialize counter to 0
-    li $t0, 0          
-    la $a0, column_axis
-    li $v0, 4
-    syscall
-    li $v0, 1  
-    #Row axis counter
-    li $a0, 1      
-    syscall
-    #Row axis counter
-    li $t5, 2          
+# lines would be horizontal on an even colNum, and vertical on an odd colNum
+andi $t2, $v0, 1 # $t2 would be 0 if even colNum, 1 if odd
 
-    #Print tabs
-    li $v0, 11         
-    li $a0, 9
-    syscall
+# branch if colNum is odd
+beq $t2, 1, verticalLine
 
+# else, horizontal line:
+li $t1, '-' 
+j skipVLine
 
-update_board_loop:
-    #Load current character into $t1
-    lb $t1, 0($t3)
-    #If character is null terminator, exit
-    beq $t1, 0, endUpdateBoard   
-    #Increment counter 
-    addi $t0, $t0, 1  
-    #Increment $t3  
-    addi $t3, $t3, 1
+verticalLine:
+li $t1, '|' 
 
-    #Print character system call
-    li $v0, 11      
-    #Load current character into $a0    
-    move $a0, $t1       
-    syscall
-    #Print tab system call
-    li $v0, 11         
-    li $a0, 9
-    syscall
-    #Calculate remainder of counter divided by 17
-    rem $t4, $t0, 17    
-    #If remainder is 0, print newline
-    beq $t4, 0, update_board_newline 
-    #Otherwise, continue looping
-    j update_board_loop             
+skipVLine:
 
-update_board_newline:
-    #Print newline system call
-    li $v0, 11          
-    li $a0, 10
-    syscall
-    #Stop before printing excessive row number, beyond 13
-    bgt $t5, 13, update_board_loop  
-    #print row number
-    move $a0, $t5
-    li $v0, 1
-    syscall
-    addi $t5, $t5, 1
-    #Print tab system call
-    li $v0, 11          
-    li $a0, 9
-    syscall
-    #Continue looping
-    j update_board_loop              
+# load array address
+move $t2, $s0 # $t0 = grid array address
 
+# branches if box is not empty
+sll $t4, $t0, 0   # calculate the byte offset of the current element to be added
+add $t4, $t4, $t2   # add the byte offset to the base address of the array
+sb $t1, ($t4)   # load the current element, $t1 = line
 
-endUpdateBoard:
-    jal user_Turn
+# restores $a0 to original value from the stack
+lw      $a0, ($sp)
+addi    $sp, $sp, 4
+
+jr      $ra
