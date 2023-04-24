@@ -12,9 +12,9 @@
 	evenCol: .asciiz "\tPlease enter an even # column.\n"
 	oddCol: .asciiz "\tPlease enter an odd # column.\n"
 	
-	displayVal: .asciiz "\tYou entered ("
-	d2: .asciiz ","
-	d3: .asciiz ")\n"
+	displayVal: .asciiz "\tYou entered row "
+	d2: .asciiz ", column"
+	d3: .asciiz "\n"
 	
 	rowNum: .word 0		# ranges 1 - 13 for user	# index 0 - 12
 	colNum: .word 0		# ranges 1 - 17 for user	# index 0 - 16
@@ -151,25 +151,25 @@ checkChar:
 					
 turn_End:
 	# display values entered by user
-		# string 1/3
+		# string 1/3	"You entered row "
 		li      $v0, 4
 		la	$t5, displayVal		
 		move    $a0, $t5
 		syscall
-		# print rowNum	
+		# print rowNum	"row#"
 		lw 	$a0, rowNum
  		li 	$v0, 1
  		syscall 
- 		#string 2/3
+ 		#string 2/3	", column "
  		li      $v0, 4
 		la	$t5, d2		
 		move    $a0, $t5
 		syscall
- 		# print colNum	
+ 		# print colNum	"col#"
 		lw 	$a0, colNum
  		li 	$v0, 1
  		syscall 
- 		# string 3/3
+ 		# string 3/3	"\n"
  		li      $v0, 4
 		la	$t5, d3		
 		move    $a0, $t5
@@ -182,9 +182,11 @@ turn_End:
  		# subtract 1 from both values
  		addi	$t0, $t0, -1
  		addi	$t1, $t1, -1
- 		# $v0 = rowNum - 1, $v1 = colNum - 1								
- 		add	$v0, $t0, $zero
- 		add	$v1, $t1, $zero
+ 		
+ 		# $v0 = rowNum - 1
+ 		# $v1 = colNum - 1								
+ 		add	$v0, $t0, $zero		# rowNum transferred from $t1 to $v1
+ 		add	$v1, $t1, $zero		# colNum transferred from $t0 to $v0
  																		
 	# restores $a0 to original value from the stack
 	lw      $a0, ($sp)
