@@ -8,7 +8,9 @@
 	turnStart: .asciiz "\nUSER TURN"
 	rowPrompt: .asciiz "\nEnter a valid row number (1 - 13): "	
 	colPrompt: .asciiz "Enter a valid column number (1 - 17): "
-	
+	rowOutRange: .asciiz "\tRow number out of range."
+	colOutRange: .asciiz "\tColumn number out of range.\n"
+
 	evenCol: .asciiz "\tPlease enter an even # column.\n"
 	oddCol: .asciiz "\tPlease enter an odd # column.\n"
 	
@@ -35,6 +37,14 @@ user_Turn:
 	move    $a0, $t5	# moves address of turnStart into $a0
 	syscall
 	
+	j getRow		# user_Turn start, get the row#
+	
+	row_RangeError:	
+		li      $v0, 4
+		la	$t5, rowOutRange	# print out of range error message
+		move    $a0, $t5	
+		syscall	
+	
 	getRow:	# prompt the user to enter a row number. Loops if invalid input given.
 		li      $v0, 4
 		la	$t5, rowPrompt	# loads address of rowPrompt to $t5
@@ -50,11 +60,19 @@ user_Turn:
 	
 		# check validity of row		# rowNum > 0	and	rowNum < 14
 		li	$t1, 1		# if rowNum < 1, jump to getRow
-		blt	$t0, $t1, getRow
+		blt	$t0, $t1, row_RangeError
+
 		li	$t1, 13		# if rowNum > 13, jump to getRow
-		bgt	$t0, $t1, getRow
+		bgt	$t0, $t1, row_RangeError
 		
 		# else, given row is valid. Continue.
+		j getCol
+		
+	col_RangeError:	
+		li      $v0, 4
+		la	$t5, colOutRange	# print out of range error message
+		move    $a0, $t5	
+		syscall		
 	
 	getCol:	# prompt the user to enter a col number. Loops if invalid input given.
 		li      $v0, 4
@@ -70,10 +88,10 @@ user_Turn:
   	  	lw	$t0, colNum	# loads colNum into $t0
 	
 		# check validity of col		# colNum > 0	and	colNum < 18
-		li	$t1, 1		# if colNum < 1, jump to getRow
-		blt	$t0, $t1, getCol
-		li	$t1, 17		# if colNum > 17, jump to getRow
-		bgt	$t0, $t1, getCol
+		li	$t1, 1		# if colNum < 1, jump to column out of range error message
+		blt	$t0, $t1, col_RangeError
+		li	$t1, 17		# if colNum > 17, jump to col_RangeError
+		bgt	$t0, $t1, col_RangeError
 		
 		# check if colNum pairs with rowNum
 			# HORIZONTAL: rowNum = odd, colNum = even	# VERTICAL: rowNum = even, colNum = odd
