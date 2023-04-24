@@ -10,9 +10,9 @@ colNum: .word 0		# index 1 - 17
 
 turnStart: .asciiz "\nCOMP TURN"
 
-displayVal: .asciiz "\tComputer Moved ("
-	d2: .asciiz ","
-	d3: .asciiz ")\n"
+displayVal: .asciiz "\tComputer Moved Row "
+	d2: .asciiz ", Column "
+	d3: .asciiz "\n"
 
 .text
 
