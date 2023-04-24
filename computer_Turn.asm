@@ -36,7 +36,7 @@ la $t3, validArray # $t3 = valid array address
 
 # Build an array of all valid spaces and count the size
 build_Valid_Array_Loop:
-	bge $t1, 210, build_Valid_Array_Loop_Exit # Exit loop if over the max size of grid array
+	bge $t1, 220, build_Valid_Array_Loop_Exit # Exit loop if over the max size of grid array
 	
 	sll $t4, $t1, 0   # calculate the byte offset of the current element to be moved
 	add $t4, $t4, $t0   # add the byte offset to the base address of the array
@@ -48,6 +48,11 @@ build_Valid_Array_Loop:
 	sll $t4, $t2, 2 # calculate the byte offset of the current element to be moved
 	add $t4, $t4, $t3 # add the byte offset to the base address of the array
 	sw $t1, ($t4) # save the valid index to validArray
+	
+	# print debug	
+	#move 	$a0, $t1
+ 	#li 	$v0, 1
+ 	#syscall 
 	
 	# Increment the valid Array size counter
 	addi $t2, $t2, 1
@@ -86,8 +91,8 @@ lw $a0, 0($t1)
 li $t3, 17 # Load 17 for division
 div $a0, $t3
 
-mfhi $t0 # row
-mflo $t1 # column
+mfhi $t1 # row
+mflo $t0 # column
 # add 1 to both values
 addi $t0, $t0, 1
 addi $t1, $t1, 1
