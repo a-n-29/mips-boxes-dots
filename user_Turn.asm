@@ -13,7 +13,7 @@
 	oddCol: .asciiz "\tPlease enter an odd # column.\n"
 	
 	displayVal: .asciiz "\tYou entered row "
-	d2: .asciiz ", column"
+	d2: .asciiz ", column "
 	d3: .asciiz "\n"
 	
 	rowNum: .word 0		# ranges 1 - 13 for user	# index 0 - 12
