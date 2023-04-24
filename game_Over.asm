@@ -1,5 +1,5 @@
 #Brennan Pease, BCP220000 
-#with additions from grid.asm for reprinting purposes
+#Detects if game over, if game over, then tell if the user or computer wins. If not, go back to user_Turn
 
 .data
 user_Wins: .asciiz "You win!"
