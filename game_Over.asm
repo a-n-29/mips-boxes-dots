@@ -8,18 +8,25 @@ tie_Msg: .asciiz  "It's a tie."
 .globl game_Over
 .text
 
+
 # load array address
 move $t0, $s0
 
 game_Over:
-li $t1, 0           # Counter for C's
-    li $t2, 0           # Counter for U's
-    li $t3, 0           # Counter for white spaces
+    #Counter for C's
+    li $t1, 0           
+    #Counter for U's
+    li $t2, 0           
+    #Counter for white spaces
+    li $t3, 0           
 
 loop:
-    lb $t4, 0($t0)      # Load a byte from array into $t4
-    beqz $t4, check_end # If the end of the array is reached, check for winner or tie
-    addi $t0, $t0, 1    # Increment array pointer
+    # Load a byte from array into $t4
+    lb $t4, 0($t0)      
+    #If the end of the array is reached, check for winner or tie
+    beqz $t4, check_end 
+    #Increment array pointer
+    addi $t0, $t0, 1    
 
     li $t5, 'C'
     li $t6, 'U'
@@ -31,15 +38,18 @@ loop:
     j loop
 
 increment_C:
-    addi $t1, $t1, 1    # Increment C counter
+    #Increment C counter
+    addi $t1, $t1, 1   
     j loop
 
 increment_U:
-    addi $t2, $t2, 1    # Increment U counter
+    #Increment U counter
+    addi $t2, $t2, 1    
     j loop
 
 increment_space:
-    addi $t3, $t3, 1    # Increment white space counter
+    #Increment white space counter
+    addi $t3, $t3, 1    
     j loop
 
 check_end:
@@ -67,5 +77,5 @@ tie:
     syscall
     j exit
 exit:
-    li $v0, 10          # Exit syscall
+    li $v0, 10   
     syscall
