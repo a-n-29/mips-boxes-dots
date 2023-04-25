@@ -40,10 +40,6 @@ gameloop:
 	# check if there is a box, otherwise change turn
 	jal create_Box
 	
-	# check for game_Over
-	# if grid-filled, game_Over will exit program
-	jal game_Over
-	
 	j gameloop
 	
 	
