@@ -1,3 +1,6 @@
+# Anh Nguyen AHN210003
+
+
 ### NOTE: the address of 'array' is stored in register $s0 so it can be accessed across other files
 .data
 #array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
