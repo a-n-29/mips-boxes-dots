@@ -1,6 +1,6 @@
 # Elizabeth Cadungog, EMC200002
 
-## RETURNS TWO VALUES ##
+### RETURNS TWO VALUES ###
 #	$v0 = row index
 #	$v1 = col index
 
