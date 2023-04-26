@@ -1,7 +1,7 @@
+# Anh Nguyen, Elizabeth Cadungog,  Garrett McGinn, Brennan Pease 
+
 .data
 
-.globl user_Score
-.globl computer_Score
 .globl current_Turn
 
 user_Score: .word 0
@@ -15,6 +15,7 @@ main:
 gameloop:
 	
 	# check and jump if gameover condition
+	
 	
 	# print the board
 	jal print_board
@@ -35,10 +36,17 @@ gameloop:
 	jal computer_Turn
 	jal update_Board
 	
+	
+	
 	boxCheck: 
 	
 	# check if there is a box, otherwise change turn
 	jal create_Box
+	
+	# check for game_Over
+	# if grid-filled, game_Over will exit program
+	jal game_Over
+	
 	
 	j gameloop
 	
