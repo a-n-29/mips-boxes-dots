@@ -1,19 +1,17 @@
-# Anh Nguyen AHN210003
-
-
 ### NOTE: the address of 'array' is stored in register $s0 so it can be accessed across other files
 .data
-#array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
+array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
 
 # The following arrays are used for testing user-win, computer-win, and tie scenarioes for game_Over
 #USER WINS: game_Over test array, enter row2 col3 for userWin
 #array: .asciiz  "+-+-+-+-+-+-+-+-+|   |U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|U|U|U|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+"
-
+#USER WIN2: game_Over test array, enter row2 col3 for userWin
+#array: .asciiz  "+-+-+-+-+-+-+-+-+|   |U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+"
 # COMPUTER WINS; game_OVer test array, enter row2 col3 for computerWin
 #array: .asciiz  "+-+-+-+-+-+-+-+-+|   |C|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+"
 
 # TIE: game_Over test array, enter row2 col3 for tie
-array: .asciiz  "+-+-+-+-+-+-+-+-+|   |U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+"
+#array: .asciiz  "+-+-+-+-+-+-+-+-+|   |U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+|U|U|U|U|U|U|U|U|+-+-+-+-+-+-+-+-+|C|C|C|C|C|C|C|C|+-+-+-+-+-+-+-+-+"
 
 
 column_axis: .asciiz "\t1\t2\t\3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14\t15\t16\t17\n"
