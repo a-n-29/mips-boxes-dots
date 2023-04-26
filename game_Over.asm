@@ -8,6 +8,10 @@ tie_Msg: .asciiz  "It's a tie."
 checking_End: .asciiz "Checking the end" 
 InGO: .asciiz "In Game Over"
 ExitMsg: .asciiz "Exiting"
+score1: .asciiz "\nUser score is "
+score2: .asciiz ", Computer score is "
+finalBoard: .asciiz "\nFINAL BOARD\n"
+
 .globl game_Over
 .text
 
@@ -57,8 +61,8 @@ check_end:
     
     #add increments together
     add $s2, $t2, $t1    
-    add $s3, $zero, $t1
-    add $s4, $zero, $t2
+    add $s3, $zero, $t1		# computerScore
+    add $s4, $zero, $t2		# userScore
     blt $s2, 48, return
     blt $s3, $s4, U_wins
     bgt $s3, $s4, C_wins
@@ -86,5 +90,35 @@ tie:
 return:
 jr $ra
 exit:
+    	# score string 1/2 "\nUser score is "
+	li      $v0, 4
+	la	$t5, score1		
+	move    $a0, $t5
+	syscall
+
+	# print user score
+	add 	$a0, $s4, $zero
+ 	li 	$v0, 1
+ 	syscall 
+ 	
+ 	# score string 2/2 ", Computer score is "
+	li      $v0, 4
+	la	$t5, score2		
+	move    $a0, $t5
+	syscall
+
+	# print computer score
+	add 	$a0, $s3, $zero
+ 	li 	$v0, 1
+ 	syscall 	
+ 	
+ 	# final board string
+	li      $v0, 4
+	la	$t5, finalBoard		
+	move    $a0, $t5
+	syscall
+
+	jal print_board
+
     li $v0, 10
    syscall
