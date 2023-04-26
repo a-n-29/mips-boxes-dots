@@ -107,7 +107,8 @@ user_Turn:
 		andi	$t2, $t0, 1		# if colNum is even, $t2 = 0	# else, colNum is odd, $t2 = 1
 		beq	$t2, $zero, isValid
 		
-		# else, colNum is odd. Print even-col error msg and start over from row-input
+		# else, colNum is odd when it should not be. 
+		#Print even-col error msg and start over from row-input
 		li      $v0, 4
 		la	$t5, evenCol
 		move    $a0, $t5
@@ -118,7 +119,8 @@ user_Turn:
 		andi	$t2, $t0, 1		# if colNum is even, $t2 = 0	# else colNum is odd, $t2 = 1
 		bne	$t2, $zero, isValid
 		
-		# else, colNum is even. Print odd-col error msg and start over from row-input
+		# else, colNum is even when it should not be.
+		# Print odd-col error msg and start over from row-input
 		li      $v0, 4
 		la	$t5, oddCol
 		move    $a0, $t5
