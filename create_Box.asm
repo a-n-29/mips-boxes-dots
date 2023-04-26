@@ -88,11 +88,6 @@ loopThroughBoxRow:
 		
 		# User gets points and the square
 		
-		# add point
-		lw $t3, user_Score
-		addi $t3, $t3, 1
-		sw $t3, user_Score
-		
 		add $t3, $t2, $t1 # add coordinates to get current one
 		
 		sll $t4, $t3, 0   # calculate the byte offset of the current element to be moved
@@ -106,9 +101,9 @@ loopThroughBoxRow:
 		computerPoints: 
 		
 		# add point
-		lw $t3, computer_Score
-		addi $t3, $t3, 1
-		sw $t3, computer_Score
+		#lw $t3, computer_Score
+		#addi $t3, $t3, 1
+		#sw $t3, computer_Score
 		
 		add $t3, $t2, $t1 # add coordinates to get current one
 		
