@@ -1,7 +1,7 @@
 # Anh Nguyen
 ### NOTE: the address of 'array' is stored in register $s0 so it can be accessed across other files
 .data
-#array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
+array: .asciiz  "+ + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +                 + + + + + + + + +"
 
 # The following arrays are used for testing user-win, computer-win, and tie scenarios for game_Over
 #USER WINS: game_Over test array, enter row2 col3 for userWin
