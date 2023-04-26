@@ -3,7 +3,7 @@
 
 .data
 user_Wins: .asciiz "You win!"
-computer_Wins: .asciiz  "Computer wins,"
+computer_Wins: .asciiz  "Computer wins."
 tie_Msg: .asciiz  "It's a tie."
 checking_End: .asciiz "Checking the end" 
 InGO: .asciiz "In Game Over"
