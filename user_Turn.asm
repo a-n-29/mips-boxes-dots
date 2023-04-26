@@ -1,6 +1,6 @@
 # Elizabeth Cadungog, EMC200002
 
-### RETURNS TWO VALUES ###
+## RETURNS TWO VALUES ##
 #	$v0 = row index
 #	$v1 = col index
 
@@ -11,8 +11,8 @@
 	rowOutRange: .asciiz "\tRow number out of range."
 	colOutRange: .asciiz "\tColumn number out of range.\n"
 
-	evenCol: .asciiz "\tPlease enter an even # column.\n"
-	oddCol: .asciiz "\tPlease enter an odd # column.\n"
+	evenCol: .asciiz "\tColumn number must be even when row number is odd.\n"
+	oddCol: .asciiz "\tColumn number must be odd when row number is even.\n"
 	
 	displayVal: .asciiz "\tYou Moved Row "
 	d2: .asciiz ", Column "
@@ -72,9 +72,12 @@ user_Turn:
 		li      $v0, 4
 		la	$t5, colOutRange	# print out of range error message
 		move    $a0, $t5	
-		syscall		
+		syscall
+		
+		j getRow		
 	
-	getCol:	# prompt the user to enter a col number. Loops if invalid input given.
+	getCol:	# prompt the user to enter a col number. 
+		# If invalid input given, prints error message then jumps back to getRow
 		li      $v0, 4
 		la	$t5, colPrompt	# loads address of colPrompt to $t5
 		move    $a0, $t5	# moves address of colPrompt into $a0
@@ -104,23 +107,23 @@ user_Turn:
 		andi	$t2, $t0, 1		# if colNum is even, $t2 = 0	# else, colNum is odd, $t2 = 1
 		beq	$t2, $zero, isValid
 		
-		# else, colNum is odd. Prompt for an even column and loop
+		# else, colNum is odd. Print even-col error msg and start over from row-input
 		li      $v0, 4
 		la	$t5, evenCol
 		move    $a0, $t5
 		syscall
-		j getCol
+		j getRow
 		
 	evenRow: # rowNum is even, colNum must be odd			
 		andi	$t2, $t0, 1		# if colNum is even, $t2 = 0	# else colNum is odd, $t2 = 1
 		bne	$t2, $zero, isValid
 		
-		# else, colNum is even. Prompt for an odd column and loop
+		# else, colNum is even. Print odd-col error msg and start over from row-input
 		li      $v0, 4
 		la	$t5, oddCol
 		move    $a0, $t5
 		syscall
-		j getCol
+		j getRow
 	
 isValid: # confirm that user-coordinate is valid, i.e. NOT a '+', '-', or '|'		
 	move 	$t1, $s0		# $t1 = base-address of array
